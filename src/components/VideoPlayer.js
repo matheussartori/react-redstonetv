@@ -1,11 +1,22 @@
-import React from 'react';
+import React, { Component } from 'react'
+import { connect } from 'react-redux'
+import { Advertisement } from 'semantic-ui-react'
 
-const VideoPlayer = props => {
+class VideoPlayer extends Component {
+  render() {
     return (
-        <div className='video-player'>
-            <h1>Video Player</h1>
-        </div>
+      <div className='video-player'>
+        <p>{JSON.stringify(this.props)}</p>
+        <Advertisement className='watch-video' unit='top banner' test='Choose an video' />
+      </div>
     )
+  }
 }
 
-export default VideoPlayer
+const mapStateToProps = state => {
+  return {
+    video: state.watchVideoReducer.video
+  }
+}
+
+export default connect(mapStateToProps)(VideoPlayer)

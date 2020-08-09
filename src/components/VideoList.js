@@ -1,13 +1,15 @@
 import React, { Component } from 'react';
-import { List, Image } from 'semantic-ui-react'
+import { List, Image, Dimmer, Loader } from 'semantic-ui-react'
 import { connect } from 'react-redux';
+
+import { watchVideo } from '../store/actions/watchVideo'
 
 class VideoList extends Component {
 
   renderVideo = video => {
     return (
-      <List animated verticalAlign='middle'>
-        <List.Item>
+      <List animated verticalAlign='middle' key={video.etag}>
+        <List.Item onClick={() => this.props.watchVideo(video)}>
           <Image src={video.snippet.thumbnails.default.url} />
           <List.Content>
             <List.Header>{video.snippet.title}</List.Header>
@@ -21,10 +23,21 @@ class VideoList extends Component {
     return (
       <div className='video-list'>
         {
+          this.props.isFetching && (<Dimmer active inverted>
+            <Loader size='medium'>Loading...</Loader>
+          </Dimmer>)
+        }
+        {
           this.props.videos.map(video => this.renderVideo(video))
         }
       </div>
     )
+  }
+}
+
+const mapDispatchToProps = dispatch => {
+  return {
+    watchVideo: video => dispatch(watchVideo(video))
   }
 }
 
@@ -36,4 +49,4 @@ const mapStateToProps = state => {
   }
 }
 
-export default connect(mapStateToProps)(VideoList)
+export default connect(mapStateToProps, mapDispatchToProps)(VideoList)

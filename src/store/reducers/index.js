@@ -1,9 +1,11 @@
-import { combineReducers } from 'redux';
+import { combineReducers } from 'redux'
 
-import searchVideoReducer from './searchVideoReducer';
+import searchVideoReducer from './searchVideoReducer'
+import watchVideoReducer from './watchVideoReducer'
 
 const rootReducer = combineReducers({
-    searchVideoReducer
+    searchVideoReducer,
+    watchVideoReducer
 })
 
 export default rootReducer
