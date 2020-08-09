@@ -5,6 +5,11 @@ import { connect } from 'react-redux';
 import { searchVideo } from '../store/actions/searchVideo';
 
 class SearchBar extends Component {
+  constructor (props) {
+    super(props)
+    this.props.searchVideo('Djent');
+  }
+
   searchTerm = e => {
     if (e.keyCode === 13) {
       const term = e.target.value;
